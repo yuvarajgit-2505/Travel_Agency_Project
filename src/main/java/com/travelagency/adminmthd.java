@@ -115,9 +115,7 @@ public class adminmthd {
         }
     }
 
-    //Bus type and fair for the trip
 
-    // Declare these instance variables at the class level
     int AC, SLEEPER, GENERAL;
 
     public void bustype() {
@@ -130,7 +128,7 @@ public class adminmthd {
             DayOfWeek day = traveldate.getDayOfWeek();
             weekend = (day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY);
 
-            // ✅ Step 1: Calculate base fares
+        
             if (choosestart.equalsIgnoreCase("chennai") && choosedestination.equalsIgnoreCase("salem")) {
                 if (weekend) {
                     AC = 1500; SLEEPER = 800; GENERAL = 600;
@@ -160,7 +158,7 @@ public class adminmthd {
                 return;
             }
 
-            // ✅ Step 2: Apply female discount
+            
             if (gend.equalsIgnoreCase("female")) {
                 AC = (int) (AC * 0.7);
                 SLEEPER = (int) (SLEEPER * 0.7);
@@ -168,7 +166,7 @@ public class adminmthd {
                 System.out.println("30% discount applied for female passenger.");
             }
 
-            // ✅ Step 3: Now ask user to choose bus type
+            
             try (Connection conn = DBConnection.getConnection();
                  PreparedStatement ps = conn.prepareStatement(
                          "UPDATE customer SET BusType = ?, Amount = ? WHERE BusType IS NULL AND Amount IS NULL")) {
@@ -200,7 +198,7 @@ public class adminmthd {
                 System.out.println("You've selected " + psg.getBustype());
                 System.out.println("The payable amount for the trip is: " + psg.getAmount());
 
-                // ✅ Step 4: Update database
+                
                 ps.setString(1, psg.getBustype());
                 ps.setInt(2, psg.getAmount());
                 ps.executeUpdate();
